@@ -1,1 +1,2443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geethika Dasari | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff;
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0 30px;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 30px;
+            bottom: 0;
+            width: 1px;
+            background: #ddd;
+            z-index: 9999;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: 30px;
+            bottom: 0;
+            width: 1px;
+            background: #ddd;
+            z-index: 9999;
+        }
+
+        .top-border {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            z-index: 9998;
+        }
+
+        .bottom-border {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            z-index: 9998;
+        }
+
+        .top-fill {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: #fff;
+            z-index: 9997;
+        }
+
+        .bottom-fill {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: #fff;
+            z-index: 9997;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #scrollText:hover {
+            transform: translateY(3px);
+            opacity: 0.8;
+            border-bottom-width: 3px;
+        }
+
+        .page {
+            display: none;
+            padding-top: 70px;
+            padding-bottom: 20px;
+            opacity: 1;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page.page-leaving {
+            display: block;
+        }
+
+        .page.page-leaving-fwd {
+            animation: fadeSlideOutUp 0.16s ease-out forwards;
+        }
+
+        .page.page-entering-fwd {
+            animation: fadeSlideInUp 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .page.page-leaving-back {
+            animation: fadeSlideOutDown 0.16s ease-out forwards;
+        }
+
+        .page.page-entering-back {
+            animation: fadeSlideInDown 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes fadeSlideOutUp {
+            0%   { opacity: 1; transform: translate3d(0, 0, 0); }
+            100% { opacity: 0; transform: translate3d(0, -10px, 0); }
+        }
+
+        @keyframes fadeSlideInUp {
+            0%   { opacity: 0; transform: translate3d(0, 12px, 0); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        @keyframes fadeSlideOutDown {
+            0%   { opacity: 1; transform: translate3d(0, 0, 0); }
+            100% { opacity: 0; transform: translate3d(0, 10px, 0); }
+        }
+
+        @keyframes fadeSlideInDown {
+            0%   { opacity: 0; transform: translate3d(0, -12px, 0); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page.page-leaving-fwd, .page.page-entering-fwd,
+            .page.page-leaving-back, .page.page-entering-back {
+                animation-duration: 0.01ms !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
+
+        /* ── INTRO OVERLAY ── */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            background: #0a0b0c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: opacity 0.55s ease;
+        }
+
+        .intro-overlay.intro-hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            height: 700px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(14, 165, 164, 0.16) 0%, rgba(14, 165, 164, 0) 65%);
+            animation: introBreathe 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes introBreathe {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+            50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        .intro-field {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .intro-dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #0ea5a4;
+            opacity: 0;
+            animation: introDrift 7s ease-in-out infinite;
+        }
+
+        @keyframes introDrift {
+            0%   { opacity: 0; transform: translateY(10px); }
+            15%  { opacity: 0.5; }
+            85%  { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+
+        .intro-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .intro-kicker {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 5px;
+            color: #0ea5a4;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: introRiseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+        }
+
+        .intro-kicker-line {
+            width: 0;
+            height: 2px;
+            background: #0ea5a4;
+            margin: 14px auto 0;
+            animation: introDrawLine 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+        }
+
+        @keyframes introDrawLine {
+            to { width: 56px; }
+        }
+
+        .intro-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.4rem, 7vw, 4.2rem);
+            color: #fff;
+            margin-top: 22px;
+            letter-spacing: -1px;
+            opacity: 0;
+            animation: introRiseIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+        }
+
+        .intro-name .accent {
+            color: #0ea5a4;
+        }
+
+        .intro-tagline {
+            margin-top: 14px;
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            color: #9a9a9a;
+            font-weight: 300;
+            opacity: 0;
+            animation: introRiseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+        }
+
+        .intro-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 34px;
+            padding: 9px 20px;
+            border: 1px solid rgba(14, 165, 164, 0.35);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #0ea5a4;
+            opacity: 0;
+            animation: introRiseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+        }
+
+        .intro-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #0ea5a4;
+            flex-shrink: 0;
+            animation: introPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes introPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 164, 0.55); }
+            50%      { box-shadow: 0 0 0 6px rgba(14, 165, 164, 0); }
+        }
+
+        @keyframes introRiseIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-skip {
+            position: fixed;
+            top: 28px;
+            right: 28px;
+            z-index: 5;
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            padding: 9px 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 999px;
+            cursor: pointer;
+            opacity: 0;
+            animation: introRiseIn 0.5s ease 1.1s forwards;
+            transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+        }
+
+        .intro-skip:hover {
+            background: #0ea5a4;
+            border-color: #0ea5a4;
+            color: #0a0b0c;
+        }
+
+        @media (max-width: 600px) {
+            .intro-glow { width: 480px; height: 480px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .intro-glow, .intro-dot, .intro-status-dot { animation: none !important; }
+            .intro-kicker, .intro-kicker-line, .intro-name, .intro-tagline, .intro-status, .intro-skip {
+                animation-duration: 0.01ms !important;
+                opacity: 1 !important;
+                transform: none !important;
+                width: 56px !important;
+            }
+        }
+
+        nav {
+            background: #fff;
+            padding: 0.6rem 2rem;
+            position: fixed;
+            top: 20px;
+            left: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: -30px;
+            right: -30px;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-btn {
+            position: relative;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #000;
+            background: #fff;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .nav-btn.active {
+            background: #00B3B3;
+            color: #fff;
+        }
+
+        .nav-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .nav-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0 0 0 #000;
+        }
+
+        .primary-cta {
+            position: relative;
+            padding: 16px 40px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            background: #0ea5a4;
+            border: none;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 0 #000;
+            display: inline-block;
+        }
+
+        .primary-cta:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 #000;
+            background: #0d9494;
+        }
+
+        .primary-cta:active {
+            transform: translate(5px, 5px);
+            box-shadow: 0 0 0 #000;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 2.5rem 3rem;
+            gap: 3rem;
+            position: relative;
+            margin: 0 50px 0 50px;
+            background: #fff;
+            border: none;
+            min-height: auto;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            margin-left: -50px;
+            margin-right: -40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #home .section:first-of-type {
+            border-top: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin: 0;
+            line-height: 1.1;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero-content .name {
+            color: #0ea5a4;
+            display: inline;
+            white-space: nowrap;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin: 0.15rem 0;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.05rem;
+            margin: 0.3rem 0;
+        }
+
+        .hero-content .highlight {
+            color: #0ea5a4;
+            font-weight: 600;
+        }
+
+        .hero-media {
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 0.1rem;
+            background: transparent;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .hero-media::after {
+            content: '';
+            position: absolute;
+            bottom: 0.1rem;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: #999;
+        }
+
+        .hero-media video {
+            width: 100%;
+            height: 310px;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-radius: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #000;
+            position: relative;
+            font-size: 0.85rem;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #00B3B3;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .social-links a:hover::before {
+            transform: scaleX(1);
+        }
+
+        .dark-bar-section {
+            background: #2a2a2a;
+            color: #fff;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0px 50px;
+            font-size: 0.9rem;
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .dark-bar-section::before {
+            content: '';
+            position: absolute;
+            left: -50px;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: transparent;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+        }
+
+        .dark-bar-section::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: transparent;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+
+        .left-icon, .right-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .left-icon {
+            left: -34px;
+        }
+
+        .right-icon {
+            right: -34px;
+        }
+
+        .section {
+            padding: 2rem 10%;
+            border-top: none;
+            position: relative;
+            margin: 1rem 50px 1rem 50px;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #d5d5d5;
+            margin-left: -50px;
+            margin-right: -40px;
+            width: calc(100% + 100px);
+        }
+
+        #home .section:first-of-type::before {
+            display: none;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title i {
+            color: #00B3B3;
+            margin-left: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #00B3B3;
+        }
+
+        .sketch-box {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            position: relative;
+            margin: 2rem 0;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .polaroid {
+            border: 3px solid #000;
+            padding: 1rem;
+            background: #fff;
+            transform: rotate(-3deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+        }
+
+        .polaroid img {
+            width: 100%;
+            border: 2px solid #000;
+        }
+
+        .about-text {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .link-btn {
+            color: #00B3B3;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #00B3B3;
+            transition: all 0.3s;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .link-btn:hover {
+            padding-left: 10px;
+        }
+
+        .education-section {
+            margin-top: 3rem;
+        }
+
+        .education-section h3 {
+            font-size: 2rem;
+            color: #00B3B3;
+            margin-bottom: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .education-container {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .education-item {
+            padding: 1.5rem;
+            background: #f9f9f9;
+            margin-bottom: 1.5rem;
+            border-left: 8px solid #00B3B3;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .education-item h4 {
+            color: #00B3B3;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .languages-section {
+            margin-top: 3rem;
+        }
+
+        .languages-section h3 {
+            font-size: 2rem;
+            color: #00B3B3;
+            margin-bottom: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .languages-container {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .language-item {
+            padding: 1rem;
+            background: #f9f9f9;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-left: 4px solid #00B3B3;
+        }
+
+        .language-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .language-item i {
+            color: #00B3B3;
+            font-size: 1.5rem;
+        }
+
+        .resume-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .experience-section {
+            margin: 3rem 0;
+        }
+
+        .experience-section h3 {
+            font-size: 2rem;
+            color: #00B3B3;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #00B3B3;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 3px solid #000;
+            background: #fff;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00B3B3;
+            border: 3px solid #000;
+            z-index: 1;
+        }
+
+        .timeline-item h3 {
+            color: #00B3B3;
+            margin-bottom: 0.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .project-card {
+            border: 3px solid #000;
+            padding: 1.5rem;
+            background: #fff;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 0 20px rgba(0, 179, 179, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            color: #00B3B3;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: #00B3B3;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 2px solid #000;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-links a {
+            color: #00B3B3;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .skill-category {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 6px 6px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #00B3B3;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .skill-chip {
+            background: #fff;
+            border: 3px solid #000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            color: #00B3B3;
+            box-shadow: 4px 4px 0 rgba(0, 179, 179, 0.3);
+            transition: all 0.3s;
+        }
+
+        .skill-chip:hover {
+            transform: translateY(-5px);
+            box-shadow: 6px 8px 0 rgba(0, 179, 179, 0.3);
+        }
+
+        .achievements-home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .achievement-card {
+            border: 3px solid #000;
+            padding: 2rem;
+            background: #fff;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: #00B3B3;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 0 rgba(0, 179, 179, 0.3);
+        }
+
+        .achievement-card .achievement-icon {
+            width: 60px;
+            height: 60px;
+            background: #00B3B3;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-card h3 {
+            color: #00B3B3;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .achievement-card p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .certifications-section {
+            margin-top: 4rem;
+        }
+
+        .certifications-section h3 {
+            font-size: 2rem;
+            color: #00B3B3;
+            margin-bottom: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* forces single row */
+            gap: 2rem;
+        }
+
+        .certification-card {
+            border: 3px solid #000;
+            padding: 1.5rem;
+            background: #fff;
+            box-shadow: 6px 6px 0 rgba(0, 179, 179, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.3);
+        }
+
+        .certification-card h4 {
+            color: #00B3B3;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .certification-card .issuer {
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-card .date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding: 2rem;
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .contact-info h3 {
+            color: #00B3B3;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 4px solid #00B3B3;
+            background: #f9f9f9;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #00B3B3;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .contact-details a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-details a:hover {
+            color: #00B3B3;
+        }
+
+        .form-container {
+            padding: 2rem;
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.2);
+        }
+
+        .form-container h3 {
+            color: #00B3B3;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 3px solid #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00B3B3;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* ── SHARED FOOTER ── */
+        .site-footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1.5px solid #000;
+            margin: 40px auto 30px auto;
+            width: calc(100% - 120px);
+            position: relative;
+        }
+
+        .creative-design-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 8%;
+            margin: 1rem 25px;
+            position: relative;
+        }
+
+        .creative-design-text {
+            text-align: center;
+            line-height: 0.9;
+        }
+
+        .creative-design-text h2 {
+            font-size: 4.2rem;
+            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -3px;
+            margin: 0;
+        }
+
+        .creative-word {
+            font-weight: 700;
+            background: #000;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            display: inline-block;
+        }
+
+        .design-word {
+            font-weight: 900;
+            font-size: 4.5rem;
+        }
+
+        .multiply-symbol {
+            color: #00B3B3;
+            margin: 0 0.8rem;
+            font-size: 4rem;
+            font-weight: 900;
+        }
+
+        .elegant-word {
+            font-style: italic;
+            font-weight: 700;
+            font-size: 4rem;
+        }
+
+        .coding-word {
+            font-weight: 900;
+            background: #000;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            display: inline-block;
+            margin-left: 0.3rem;
+            font-size: 4rem;
+        }
+
+        .experience-highlights-section {
+            margin: 2rem 0;
+        }
+
+        .experience-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-highlight-card {
+            text-align: center;
+            padding: 1.5rem;
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 6px 6px 0 rgba(0, 179, 179, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .experience-highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 8px 8px 0 rgba(0, 179, 179, 0.3);
+        }
+
+        .experience-highlight-icon {
+            width: 60px;
+            height: 60px;
+            background: #00B3B3;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .experience-highlight-card h3 {
+            color: #00B3B3;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .experience-highlight-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0 20px 20px 20px; }
+            body::before { left: 20px; top: 20px; bottom: 20px; }
+            body::after  { right: 20px; top: 20px; bottom: 20px; }
+            .hero { grid-template-columns: 1fr; padding: 2rem 5%; margin: 10px 20px 0 20px; gap: 2rem; min-height: auto; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            nav { margin: 0 20px; }
+            .section { padding: 2rem 5%; margin: 0 20px 20px 20px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .skills-container { grid-template-columns: 1fr; }
+            .achievements-home-grid { grid-template-columns: 1fr; }
+            .certifications-grid { grid-template-columns: 1fr; }
+            .site-footer { margin: 40px 20px 0 20px; width: auto; }
+            .creative-design-section { margin: 0 20px; }
+            .creative-design-text h2 { font-size: 2rem; }
+            .design-word { font-size: 2.2rem; }
+            .elegant-word { font-size: 1.8rem; }
+            .coding-word { font-size: 1.8rem; }
+            .multiply-symbol { font-size: 1.5rem; }
+            .dark-bar-section { margin: 0 20px; }
+            .experience-highlights-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-glow"></div>
+        <div class="intro-field" id="introField"></div>
+        <button class="intro-skip" onclick="dismissIntro()">SKIP</button>
+        <div class="intro-content">
+            <p class="intro-kicker">Portfolio</p>
+            <div class="intro-kicker-line"></div>
+            <h1 class="intro-name">Hi, I'm <span class="accent">Geethika</span></h1>
+            <p class="intro-tagline">Bridging Design &amp; Development to Solve Real-World Problems</p>
+            <div class="intro-status">
+                <span class="intro-status-dot"></span>
+                Where bold ideas meet clean code.
+            </div>
+        </div>
+    </div>
+
+    <div class="top-fill"></div>
+    <div class="bottom-fill"></div>
+    <div class="top-border"></div>
+    <div class="bottom-border"></div>
+
+    <nav>
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 100 100" style="width: 45px; height: 45px;">
+                <circle cx="50" cy="50" r="35" fill="#00B3B3"/>
+                <circle cx="50" cy="50" r="20" fill="#2a2a2a"/>
+            </svg>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 400; color: #000; font-size: 1.8rem; line-height: 1;">•</span>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #000; font-size: 1.2rem;">dev</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showPage('home'); return false;" class="nav-btn active" data-page="home">Home</a></li>
+            <li><a href="#" onclick="showPage('about'); return false;" class="nav-btn" data-page="about">About</a></li>
+            <li><a href="#" onclick="showPage('experience'); return false;" class="nav-btn" data-page="experience">Experience</a></li>
+            <li><a href="#" onclick="showPage('projects'); return false;" class="nav-btn" data-page="projects">Projects</a></li>
+            <li><a href="#" onclick="showPage('skills'); return false;" class="nav-btn" data-page="skills">Skills</a></li>
+            <li><a href="#" onclick="showPage('achievements'); return false;" class="nav-btn" data-page="achievements">Achievements</a></li>
+            <li><a href="#" onclick="showPage('contact'); return false;" class="primary-cta" data-page="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══════════════ HOME ═══════════════ -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Hi,<br>I'm <span class="name">Geethika Dasari</span></h1>
+                <p style="border-bottom: 2px solid #0ea5a4; padding-bottom: 0.4rem; margin-bottom: 0.1rem; color: #333; font-size: 0.95rem; width: fit-content;">From Andhra Pradesh, India.</p>
+                <p class="tagline">Bridging <span class="highlight">Design</span> and <span class="highlight">Development</span> to Solve Real-World <span class="highlight">Problems</span>.</p>
+                <a href="#" onclick="showPage('contact'); return false;" class="primary-cta" style="width: fit-content; padding: 12px 30px; font-size: 13px;">GET IN TOUCH</a>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/geethikaa-dasari07" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Geethikadasari7" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://leetcode.com/u/24a31a4306/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+                    <a href="https://www.hackerrank.com/profile/24a31a4306" target="_blank" title="HackerRank"><i class="fab fa-hackerrank"></i></a>
+                    <a href="https://www.codechef.com/users/geethikadasari" target="_blank" title="CodeChef"><i class="fas fa-trophy"></i></a>
+                    <a href="mailto:geethikaadasari@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-media">
+                <video autoplay muted loop playsinline>
+                    <source src="Video/second.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <section class="dark-bar-section">
+            <div class="left-icon"></div>
+            <div class="right-icon"></div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <svg style="width: 20px; height: 20px; fill: #0ea5a4;" viewBox="0 0 50 50">
+                    <ellipse cx="25" cy="35" rx="8" ry="10"/>
+                    <ellipse cx="15" cy="20" rx="4" ry="6"/>
+                    <ellipse cx="25" cy="17" rx="4" ry="6"/>
+                    <ellipse cx="35" cy="20" rx="4" ry="6"/>
+                </svg>
+                <span id="time-display">12:35:50 PM IST</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span>Inspired by Paper writing</span>
+                <svg style="width: 20px; height: 20px; stroke: #fff; stroke-width: 2; fill: none; cursor: pointer;" viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </div>
+        </section>
+
+        <section class="creative-design-section">
+            <div class="creative-design-text">
+                <h2>
+                    <span class="creative-word">Creative</span><span class="design-word">design</span>
+                    <span class="multiply-symbol">×</span>
+                    <span class="elegant-word">Elegant</span><span class="coding-word">Coding</span>
+                </h2>
+            </div>
+        </section>
+
+        <section style="text-align: center; padding: 0.4rem 0; margin: 0 50px; position: relative;">
+            <div style="position: absolute; top: 0; left: -50px; right: -50px; height: 1px; background: #e3e3e3;"></div>
+            <div id="scrollText"
+                style="display: inline-flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 700; color: #0ea5a4; cursor: pointer; user-select: none; border-bottom: 2px solid #0ea5a4; padding-bottom: 0; margin-top: -4px; transition: 0.3s ease;">
+                Scroll <i class="fas fa-chevron-down" style="font-size: 1.1rem;"></i>
+            </div>
+        </section>
+
+        <section class="section" style="padding-bottom: 2rem;">
+            <h2 class="section-title">About Me <i class="fas fa-user"></i></h2>
+            <div class="about-grid">
+                <div class="polaroid">
+                    <img src="images/Profile_Picture.jpeg" alt="Geethika Dasari">
+                </div>
+                <div class="about-text sketch-box">
+                    <p>Artificial Intelligence student in the second year of B.Tech with a strong academic record (CGPA: 9.38), driven by a passion for building scalable and impactful real-world solutions.</p>
+                    <p>Hands-on experience in full-stack development, automation, and AI-driven projects, with a strong ability to apply technical knowledge, problem-solving, and communication skills to develop efficient and practical systems.</p>
+                    <a href="#" onclick="showPage('about'); return false;" class="link-btn">Learn More →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding: 2rem 2rem;">
+            <h2 class="section-title">My Core Skills <i class="fas fa-tools"></i></h2>
+            <div class="skills-grid" style="justify-content: center;">
+                <div class="skill-chip">Java</div>
+                <div class="skill-chip">Python</div>
+                <div class="skill-chip">React</div>
+                <div class="skill-chip">CSS</div>
+                <div class="skill-chip">JavaScript</div>
+                <div class="skill-chip">SQL</div>
+                <div class="skill-chip">Problem Solving</div>
+                <div class="skill-chip">OOP</div>
+                <div class="skill-chip">Data Structures</div>
+                <div class="skill-chip">Algorithms</div>
+                <div class="skill-chip">Gen AI / Agentic AI</div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" onclick="showPage('skills'); return false;" class="link-btn">View All Skills →</a>
+            </div>
+        </section>
+
+        <section class="section experience-highlights-section">
+            <h2 class="section-title">Experience Highlights <i class="fas fa-briefcase"></i></h2>
+            <div class="sketch-box" style="max-width: 900px; margin: 0 auto;">
+                <div class="experience-highlights-grid">
+                    <div class="experience-highlight-card">
+                        <div class="experience-highlight-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>5+ Internships</h3>
+                        <p>Gen AI & Agentic AI, SQL & DBMS, ServiceNow, Web Development, RPA</p>
+                    </div>
+                    <div class="experience-highlight-card">
+                        <div class="experience-highlight-icon"><i class="fas fa-users"></i></div>
+                        <h3>Leadership Roles</h3>
+                        <p>Microsoft Student Learn Ambassador,</p>
+                        <p>Division Administrative Manager</p>
+                    </div>
+                    <div class="experience-highlight-card">
+                        <div class="experience-highlight-icon"><i class="fas fa-trophy"></i></div>
+                        <h3>Hackathon Winner</h3>
+                        <p>Top rankings in multiple hackathons</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" onclick="showPage('experience'); return false;" class="link-btn">View Full Experience →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Featured Projects <i class="fas fa-laptop-code"></i></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>FaceID</h3>
+                    <p>Developed an automated attendance tracking by identifying individuals via webcam and recording entries without duplicates.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">face_recognition</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>MyLibrary WhatsApp Bot</h3>
+                    <p>Automated library notifications using Google Sheets and Twilio API for seamless student queries.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">n8n Workflows</span>
+                        <span class="tech-tag">Twilio API</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Sanchar</h3>
+                    <p>Tourist safety web platform with real-time risk zone visualization and AI-driven insights. Built for Smart India Hackathon 2025.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">TailwindCSS</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" onclick="showPage('projects'); return false;" class="link-btn">View All Projects →</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Recent Achievements & Certifications <i class="fas fa-trophy"></i></h2>
+            <div class="achievements-home-grid">
+                
+
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Microsoft Certified: Azure AI Fundamentals (AI-900)</h3>
+                    <p>Earned the Microsoft Azure AI Fundamentals certification, demonstrating foundational knowledge of AI and machine learning concepts.</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Toastmasters International-2026</h3>
+                    <p>"Golden Feather Award Winner"</p>
+                    <p>Recognized for outstanding communication and leadership skills at the division level.</p>
+                </div>
+    
+                
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" onclick="showPage('achievements'); return false;" class="link-btn">See All Achievements →</a>
+            </div>
+        </section>
+
+        <section class="section" style="margin-bottom: 20px;">
+            <h2 class="section-title">Let's Connect! <i class="fas fa-envelope"></i></h2>
+            <div class="sketch-box" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Open to collaborations, ideas, and opportunities. Let's create something amazing together!</p>
+                <a href="#" onclick="showPage('contact'); return false;" class="primary-cta">CONTACT ME</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ ABOUT ═══════════════ -->
+    <div id="about" class="page">
+        <section class="section">
+            <h2 class="section-title">About Me <i class="fas fa-user"></i></h2>
+            <div class="about-grid">
+                <div class="polaroid">
+                    <img src="images/Profile_Picture.jpeg" alt="Geethika Dasari">
+                </div>
+                <div class="about-text">
+                    <p>Hi, I'm Geethika Dasari, a B.Tech student specializing in Artificial Intelligence at Pragati Engineering College, with a strong academic record (CGPA: 9.38). I am driven by a deep interest in building technology that solves real-world problems and creates meaningful impact.</p>
+                    <p>I have hands-on experience in full-stack development, automation, and AI-based applications, demonstrated through projects such as a real-time face recognition attendance system, a WhatsApp automation bot, and smart healthcare and safety platforms. I focus on designing practical, scalable solutions that bridge the gap between ideas and real-world implementation.</p>
+                    <p>Beyond technical expertise, I actively develop leadership and communication skills through Toastmasters, where I have taken on key roles and strengthened my ability to collaborate, lead, and present ideas effectively. My consistent participation in hackathons and team projects reflects my adaptability, problem-solving mindset, and commitment to continuous growth.</p>
+                    <p>I aim to grow into a skilled software and AI professional who combines strong technical depth with effective communication and a collaborative mindset, contributing meaningfully to innovative and high-impact organizations.</p>
+                </div>
+            </div>
+
+            <div class="education-section">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <div class="education-container">
+                    <div class="education-item">
+                        <h4>Bachelor of Technology</h4>
+                        <p><strong>Pragati Engineering College</strong></p>
+                        <p>Computer Science and Engineering - Artificial Intelligence</p>
+                        <p>2024 - Present | Surampalem</p>
+                        <p style="margin-top: 1rem;"><strong>CGPA:</strong> <span style="color: #00B3B3; font-size: 1.3rem; font-weight: 700;">9.38</span></p>
+                    </div>
+                    <div class="education-item">
+                        <h4>Intermediate (CBSE)</h4>
+                        <p><strong>Lakshya School</strong></p>
+                        <p>2022-2024 | Unduru | <strong>79.2%</strong></p>
+                    </div>
+                    <div class="education-item">
+                        <h4>High School</h4>
+                        <p><strong>Aditya Talent School</strong></p>
+                        <p>2022 | Kakinada | <strong>95.8%</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="languages-section">
+                <h3><i class="fas fa-language"></i> Languages Known</h3>
+                <div class="languages-container">
+                    <div class="language-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4 style="color: #00B3B3; margin-bottom: 0.3rem;">English</h4>
+                            <p style="margin: 0; color: #666;">Professional Proficiency</p>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4 style="color: #00B3B3; margin-bottom: 0.3rem;">Telugu</h4>
+                            <p style="margin: 0; color: #666;">Native Proficiency</p>
+                        </div>
+                    </div>
+                    <div class="language-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4 style="color: #00B3B3; margin-bottom: 0.3rem;">Hindi</h4>
+                            <p style="margin: 0; color: #666;">Intermediate Proficiency</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3 style="font-size: 2rem; color: #00B3B3; margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;"><i class="fas fa-file-download"></i> Resume</h3>
+                <a href="https://drive.google.com/drive/folders/1yBCq2Z-ovRAy6pOCfVMhTpEQ07x6A7mO" target="_blank" class="primary-cta" style="font-size: 16px; padding: 18px 45px;">
+                    <i class="fas fa-download"></i> DOWNLOAD RESUME
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+<div id="experience" class="page">
+    <section class="section">
+        <h2 class="section-title">Experience <i class="fas fa-briefcase"></i></h2>
+
+        <!-- INTERNSHIPS SUBHEADING -->
+        <h3 style="font-size:1.7rem;font-weight:700;font-family:'Space Grotesk',sans-serif;color:#00B3B3;margin-bottom:1.6rem;display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:5px;height:28px;background:#00B3B3;border-radius:2px;"></span>
+            Internships
+        </h3>
+
+        <!-- INTERNSHIPS TIMELINE -->
+        <div style="position:relative;padding-left:2.2rem;margin-bottom:2.5rem;">
+            <div style="position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:#00B3B3;"></div>
+
+            <!-- Item 0a -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Gen AI and Agentic AI Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jun – Jul 2026</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">BrainOvision Solutions India Pvt. Ltd.</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Worked with Generative AI, Agentic AI, LLMs, prompt engineering, and AI workflow automation. Built a production-ready GenAI application leveraging autonomous AI agents for intelligent workflow automation.</div>
+                    <a href="https://drive.google.com/file/d/1OueNE00bzu5lNhHT9L0VHAKr6TeI_lXp/view?usp=drivesdk" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+
+            <!-- Item 0b -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">SQL & Database Management Systems Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Apr – Jun 2026</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">AICTE – EduSkills</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Designed and optimized database solutions using SQL, MongoDB, Power BI, ETL workflows, and REST APIs. Developed a Retail Store Inventory Aggregation project applying database design and business analytics concepts.</div>
+                    <a href="https://drive.google.com/file/d/1TnJeAusmVbMNJvWdqyWg4bcQ7t8YedEQ/view?usp=drivesdk" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+
+            <!-- Item 1 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">ServiceNow Virtual Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Oct 2025</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">AICTE – SmartBridge</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Gained hands-on experience in workflow automation, administration, testing, and analytics using the ServiceNow platform.</div>
+                    <a href="https://drive.google.com/file/d/12zYyx9RaAAArVtQhGjqBP5_JgEDc0-_4" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Web Full Stack Developer Virtual Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Apr – Jun 2025</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">AICTE – EduSkills</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Learned front-end development using HTML, CSS, and JavaScript.</div>
+                    <a href="https://drive.google.com/file/d/1T6PEkqWUSDXybdiwiwxaw3Gl4CnmitH0" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">UI-Path RPA Developer Virtual Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jan – Mar 2025</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">AICTE – EduSkills</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Explored fundamental concepts of Robotic Process Automation.</div>
+                    <a href="https://drive.google.com/file/d/1xWivQdkR7LdrPPuZrtjA-kCgyuJps4Xg" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div style="position:relative;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Google AI-ML Virtual Internship</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Oct – Dec 2024</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">AICTE – EduSkills</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Gained foundational experience in building machine learning models using Python.</div>
+                    <a href="https://drive.google.com/file/d/1xK12OMQN_iwBwClbpkPtYyLSnoi9BIij" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View Certificate →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div style="height:1px;background:#e5e5e5;margin:0.5rem 0 2.5rem;"></div>
+
+        <!-- LEADERSHIP SUBHEADING -->
+        <h3 style="font-size:1.7rem;font-weight:700;font-family:'Space Grotesk',sans-serif;color:#00B3B3;margin-bottom:1.6rem;display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:5px;height:28px;background:#00B3B3;border-radius:2px;"></span>
+            Leadership Experience
+        </h3>
+
+        <!-- LEADERSHIP TIMELINE -->
+        <div style="position:relative;padding-left:2.2rem;">
+            <div style="position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:#00B3B3;"></div>
+
+            <!-- Item 1 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Microsoft Learn Student Ambassador</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">2024 – Present</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">Microsoft</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Mentored 100+ students and facilitated 1,000+ module completions as a Microsoft Learn Student Ambassador.</div>
+                    <a href="https://drive.google.com/file/d/1LkHO3C98SM1qAR_AuoaFziso_v03vdOt" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Division Administrative Manager</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jul 2026 – Present</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">D225 Toastmasters International - Division F</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Managing administrative operations across four states — Madhya Pradesh, Andhra Pradesh, Telangana, and Chhattisgarh.</div>
+                </div>
+            </div>
+
+            <!-- Item 2b -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Vice President Education</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jul 2026 – Present</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">Pragati Toastmasters Club - D225 Toastmasters International</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">As VPE, leading educational programs, member engagement, Pathways progression, and club growth.</div>
+                    <a href="https://drive.google.com/drive/folders/1Hul8I5YVOK5DppIlromtoYQ1Jju03ZRR?usp=drive_link" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div style="position:relative;margin-bottom:2rem;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Area Administrative Manager</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jul 2025 – Jun 2026</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">D126 Toastmasters International – Area G2</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Managed administration for four clubs, ensuring District Administration Award compliance.</div>
+                    <a href="https://drive.google.com/drive/folders/151yz9UetIjTpJAUTji3hcodRFmlhgbZW" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div style="position:relative;">
+                <div style="position:absolute;left:-1.78rem;top:7px;width:14px;height:14px;border-radius:50%;background:#00B3B3;border:3px solid #fff;box-shadow:0 0 0 2px #00B3B3;"></div>
+                <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.2rem 1.4rem;background:#fff;position:relative;overflow:hidden;">
+                    <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:#00B3B3;"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+                        <h4 style="font-size:15px;font-weight:600;color:#333;line-height:1.3;">Secretary</h4>
+                        <span style="font-size:11.5px;padding:3px 10px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;white-space:nowrap;margin-left:10px;flex-shrink:0;">Jan – Jun 2025</span>
+                    </div>
+                    <div style="font-size:13px;color:#0ea5a4;font-weight:600;margin-bottom:6px;">Pragati Toastmasters Club - D126 Toastmasters International</div>
+                    <div style="font-size:13px;color:#666;line-height:1.6;">Strengthened leadership by managing club records and coordinating with officers.</div>
+                    <a href="https://drive.google.com/drive/folders/16CFIUZOY8GPGFzBrHBTmh3qsGGHILs-A" target="_blank" style="display:inline-block;margin-top:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <div id="projects" class="page">
+        <section class="section">
+            <h2 class="section-title">Projects <i class="fas fa-laptop-code"></i></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>FaceId</h3>
+                    <p style="font-size: 0.9rem; color: #00B3B3; margin-bottom: 0.5rem;">April 2026</p>
+                    <p>Developed a real-time face detection and recognition system using OpenCV and facial encoding.</p>
+                    <p>Automated attendance tracking by identifying individuals via webcam and recording entries without duplicates.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">face_recognition</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Geethikadasari7/FaceID" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Sanchar</h3>
+                    <p style="font-size: 0.9rem; color: #00B3B3; margin-bottom: 0.5rem;">September 2025 | Smart India Hackathon</p>
+                    <p>Designed a responsive tourist safety web platform featuring real-time risk zone visualization and intuitive dashboards.</p>
+                    <p>Implemented AI-driven insights to enhance user safety and situational awareness, securing a position in the top 10 at the Smart India Internal Hackathon 2025.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">TailwindCSS</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Geethikadasari7/Sanchar"target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://sancharr.netlify.app/"target="_blank" rel="noopener noreferrer"> <i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>MyLibrary WhatsApp Bot</h3>
+                    <p style="font-size: 0.9rem; color: #00B3B3; margin-bottom: 0.5rem;">July 2025</p>
+                    <p>Automated library notifications by integrating Google Sheets with the Twilio API.</p>
+                    <p>Enabled seamless student queries and real-time updates on book availability through WhatsApp.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">n8n Workflows</span>
+                        <span class="tech-tag">Twilio API</span>
+                        <span class="tech-tag">Google Sheets</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Geethikadasari7/MyLibrary-WhatsApp-Bot" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Vital Care</h3>
+                    <p style="font-size: 0.9rem; color: #00B3B3; margin-bottom: 0.5rem;">August 2025</p>
+                    <p>Prototyped a smart healthcare platform integrating smartwatch data with a responsive website to monitor patient vitals.</p>
+                    <p>Implemented voice-assisted medication reminders and health insights, targeting improved healthcare access for rural communities.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Geethikadasari7/VitalCare" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://vitalcaare.netlify.app/" target="_blank" rel="noopener noreferrer"> <i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>HealthEase</h3>
+                    <p style="font-size: 0.9rem; color: #00B3B3; margin-bottom: 0.5rem;">January 2025</p>
+                    <p>Developed a digital health record system connecting doctors and patients.</p>
+                    <p>Implemented features for appointment scheduling, medical history tracking, and secure communication to enhance healthcare accessibility.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Geethikadasari7/HealthEase" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://healtheasee.netlify.app/" target="_blank" rel="noopener noreferrer"> <i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ SKILLS ═══════════════ -->
+<div id="skills" class="page">
+    <section class="section">
+        <h2 class="section-title">Skills & Expertise <i class="fas fa-tools"></i></h2>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">01</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">Programming Languages</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Java</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Python</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">C</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">JavaScript</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">SQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">02</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">Web Development</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">HTML5</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">CSS3</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">React</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">MySQL</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">03</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">Developer Tools & Operating Systems</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Git/GitHub</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">VS Code</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Figma</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Canva</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">n8n</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">UiPath</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Windows</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">04</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">Concepts</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Object-Oriented Programming</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Data Structures</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Algorithms</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">DBMS</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">REST APIs</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">05</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">Professional Skills</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Leadership</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Public Speaking</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Communication</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Teamwork</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="font-size:3rem;font-weight:700;color:#0ea5a4;opacity:0.15;line-height:1;font-family:'Space Grotesk',sans-serif;min-width:52px;">06</div>
+                <div>
+                    <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:10px;">AI Technologies</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Gen AI</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Agentic AI</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Prompt Engineering</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">LLMs</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Machine Learning</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">RPA</span>
+                        <span style="font-size:12.5px;padding:4px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:5px;">Automation</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+<!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
+<div id="achievements" class="page">
+    <section class="section">
+        <h2 class="section-title">Achievements & Certifications <i class="fas fa-trophy"></i></h2>
+
+        <!-- CERTIFICATIONS SUBHEADING -->
+        <h3 style="font-size:1.7rem;font-weight:700;font-family:'Space Grotesk',sans-serif;color:#00B3B3;margin-bottom:1.6rem;display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:5px;height:28px;background:#00B3B3;border-radius:2px;"></span>
+            Certifications
+        </h3>
+
+        <!-- CERTIFICATIONS BENTO GRID -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-book"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Microsoft Certified: Azure AI Fundamentals (AI-900)</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Earned Microsoft AI-900 certification, covering Azure AI services, machine learning, NLP, computer vision, and generative AI.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Microsoft</span>
+                <a href="https://drive.google.com/file/d/19lf7_gxE0X1e8JoeI6Xh5p75DMd-bZ48/view" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2026</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-database"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Microsoft Certified: Fabric Data Engineer Associate (DP-700)</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Earned Microsoft's Fabric Data Engineer Associate certification, covering data pipelines, Lakehouse architecture, and analytics engineering on Microsoft Fabric.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Microsoft</span>
+                <a href="https://drive.google.com/file/d/1gtB-KP5HKnGQSUGcnqgtgvj-jAWN9aZO/view?usp=sharing" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2026</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-book"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Programming in Java</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Completed NPTEL certification covering core Java programming and OOP principles.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">NPTEL</span>
+                <a href="https://drive.google.com/file/d/15426199-J78588K9f4pqcAOFCdl3WJEg/view" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2025</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-microphone"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Presentation Mastery — Level 2</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Achieved Level 2 in the Presentation Mastery pathway via Toastmasters International.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Toastmasters</span>
+                <a href="https://drive.google.com/drive/folders/1wXbmgfLxMRD0eFf_sXQp093ogP5dHdbK" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2025</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-graduation-cap"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">TCS ION — Career Skills</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Completed TCS ION's career readiness program covering professional workplace skills.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">TCS ION</span>
+                <a href="https://drive.google.com/drive/folders/1yg7O8MoiZYgSV6m0ZtrNkr2SLj3WpgGe" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2024</div>
+            </div>
+
+        </div>
+
+        <!-- DIVIDER -->
+        <div style="height:1px;background:#e5e5e5;margin:3rem 0;"></div>
+
+        <!-- ACHIEVEMENTS SUBHEADING -->
+        <h3 style="font-size:1.7rem;font-weight:700;font-family:'Space Grotesk',sans-serif;color:#00B3B3;margin-bottom:1.6rem;display:flex;align-items:center;gap:10px;">
+            <span style="display:inline-block;width:5px;height:28px;background:#00B3B3;border-radius:2px;"></span>
+            Achievements
+        </h3>
+
+        <!-- ACHIEVEMENTS BENTO GRID -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-trophy"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Golden Feather Award — Toastmasters International</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Outstanding leadership & communication excellence at division level.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">District Level</span>
+                <a href="https://drive.google.com/file/d/145A5vL5EYRZJUxSvkeFCc9qbOLf4LTpL/view?usp=drive_link" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2026</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-trophy"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Excellence in Administration Award — Toastmasters International</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Recognized for exceptional administrative contributions and leadership.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">District Level</span>
+                <a href="https://drive.google.com/file/d/1paROY_WZ8j7fSHCbPQhOO2GklBVBppb6/view?usp=drive_link" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2026</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-bolt"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Smart India Hackathon — Top 10</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Built Sanchar, a real-time tourist safety platform with AI-driven insights.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Hackathon</span>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2025</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-medal"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Web Innovations Hackathon — 1st Place</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Winner of the SDG Workshop hackathon by Brainovision Solutions.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Winner</span>
+                <a href="https://drive.google.com/file/d/1-8LaD9uO6rHkoK1x514LtD1SbqDqIf11" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2025</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fas fa-star"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Inspira Hackathon — Top 5</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Top 5 at Inspira Hackathon by NIT-AP and Sasi with Forge Alumnus.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Top 5</span>
+                <a href="https://drive.google.com/file/d/1RounkLfEGoqr8RjqtOKDY946eJiTFxOJ" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2025</div>
+            </div>
+
+            <div style="border:0.5px solid #ddd;border-radius:10px;padding:1.4rem 1.3rem 2.2rem;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#00B3B3;"></div>
+                <div style="width:40px;height:40px;background:#e1f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px;color:#0ea5a4;"><i class="fab fa-microsoft"></i></div>
+                <h4 style="font-size:15px;font-weight:600;color:#333;margin-bottom:7px;line-height:1.4;">Microsoft Learn Student Ambassador</h4>
+                <p style="font-size:13.5px;color:#666;line-height:1.6;">Mentored 100+ students, facilitated 1,000+ module completions.</p>
+                <span style="display:inline-block;margin-top:10px;font-size:11.5px;padding:3px 12px;background:#e1f5f5;color:#0ea5a4;border-radius:20px;">Leadership</span>
+                <a href="https://drive.google.com/file/d/1LkHO3C98SM1qAR_AuoaFziso_v03vdOt" target="_blank" style="display:inline-block;margin-top:8px;margin-left:8px;font-size:12px;color:#0ea5a4;font-weight:600;border-bottom:1px solid #0ea5a4;text-decoration:none;">View →</a>
+                <div style="font-size:28px;font-weight:700;color:#0ea5a4;opacity:0.13;position:absolute;bottom:7px;right:12px;font-family:'Space Grotesk',sans-serif;">2024</div>
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+    <!-- ═══════════════ CONTACT ═══════════════ -->
+    <div id="contact" class="page">
+        <section class="section">
+            <h2 class="section-title">Let's Connect! <i class="fas fa-envelope"></i></h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Feel free to reach out for collaborations, opportunities, or just a friendly chat!</p>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-details">
+                            <p style="color: #666; margin: 0;">Email</p>
+                            <a href="mailto:geethikaadasari@gmail.com">geethikaadasari@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-details">
+                            <p style="color: #666; margin: 0;">Phone</p>
+                            <a href="tel:+919652552423">+91 9652552423</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-details">
+                            <p style="color: #666; margin: 0;">Location</p>
+                            <span style="color: #333; font-weight: 600;">Kakinada, Andhra Pradesh</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: #333;">Connect on Social Media</h4>
+                        <div class="social-links" style="justify-content: flex-start;">
+                            <a href="https://www.linkedin.com/in/geethikaa-dasari07" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/Geethikadasari7" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://leetcode.com/u/24a31a4306/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+                            <a href="https://www.hackerrank.com/profile/24a31a4306" target="_blank" title="HackerRank"><i class="fab fa-hackerrank"></i></a>        
+                            <a href="https://www.codechef.com/users/geethikadasari" target="_blank" title="CodeChef"><i class="fas fa-trophy"></i></a>
+                            <a href="mailto:geethikaadasari@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3>Send a Message</h3>
+                    <form id="contactForm" action="https://formspree.io/f/meokkqbq" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <input type="text" name="_gotcha" style="display:none">
+                        <button type="submit" class="primary-cta" id="submitBtn" style="width: 100%;">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════════ SHARED FOOTER (always visible) ═══════════════ -->
+    <footer class="site-footer">
+        <div class="social-links" style="justify-content: center;">
+            <a href="https://www.linkedin.com/in/geethikaa-dasari07" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Geethikadasari7" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://leetcode.com/u/24a31a4306/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
+            <a href="https://www.hackerrank.com/profile/24a31a4306" target="_blank" title="HackerRank"><i class="fab fa-hackerrank"></i></a>
+            <a href="https://www.codechef.com/users/geethikadasari" target="_blank" title="CodeChef"><i class="fas fa-trophy"></i></a>
+            <a href="mailto:geethikaadasari@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p style="margin-top: 1rem; color: #666;">© 2025 Geethika Dasari | Crafted with Code & Coffee</p>
+    </footer>
+
+    <script>
+        // ── INTRO OVERLAY ──
+        (function seedIntroField() {
+            const field = document.getElementById('introField');
+            if (!field) return;
+            const count = window.innerWidth < 600 ? 8 : 16;
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'intro-dot';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.top = Math.random() * 100 + '%';
+                dot.style.animationDelay = (Math.random() * 6) + 's';
+                dot.style.animationDuration = (6 + Math.random() * 3) + 's';
+                field.appendChild(dot);
+            }
+        })();
+
+        const INTRO_SEEN_KEY = 'portfolioIntroSeen';
+        let introDismissed = false;
+
+        function dismissIntro() {
+            if (introDismissed) return;
+            introDismissed = true;
+            const overlay = document.getElementById('introOverlay');
+            document.body.style.overflow = '';
+            if (overlay) overlay.classList.add('intro-hide');
+            try { sessionStorage.setItem(INTRO_SEEN_KEY, '1'); } catch (e) {}
+            setTimeout(() => { if (overlay) overlay.style.display = 'none'; }, 600);
+        }
+
+        (function initIntro() {
+            const overlay = document.getElementById('introOverlay');
+            if (!overlay) return;
+            let seen = false;
+            try { seen = !!sessionStorage.getItem(INTRO_SEEN_KEY); } catch (e) {}
+            if (seen) {
+                overlay.style.display = 'none';
+                introDismissed = true;
+                return;
+            }
+            document.body.style.overflow = 'hidden';
+            setTimeout(dismissIntro, 2600);
+        })();
+
+        const PAGE_STORAGE_KEY = 'portfolioActivePage';
+        const PAGE_ORDER = ['home', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact'];
+
+        function setActiveNav(pageId) {
+            document.querySelectorAll('.nav-btn, .primary-cta[data-page]').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        function showPage(pageId, instant) {
+            const next = document.getElementById(pageId);
+            if (!next) return;
+            const current = document.querySelector('.page.active');
+
+            try { sessionStorage.setItem(PAGE_STORAGE_KEY, pageId); } catch (e) {}
+            setActiveNav(pageId);
+
+            // No previous page, same page, or a silent restore on load: swap instantly, no animation.
+            if (instant || !current || current === next) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove(
+                    'active', 'page-leaving', 'page-leaving-fwd', 'page-leaving-back',
+                    'page-entering-fwd', 'page-entering-back'
+                ));
+                next.classList.add('active');
+                if (!instant) window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            const fromIdx = PAGE_ORDER.indexOf(current.id);
+            const toIdx = PAGE_ORDER.indexOf(pageId);
+            const forward = toIdx >= fromIdx;
+            const leaveClass = forward ? 'page-leaving-fwd' : 'page-leaving-back';
+            const enterClass = forward ? 'page-entering-fwd' : 'page-entering-back';
+
+            current.classList.add('page-leaving', leaveClass);
+            setTimeout(() => {
+                current.classList.remove('active', 'page-leaving', leaveClass);
+                next.classList.add('active', enterClass);
+                window.scrollTo({ top: 0, behavior: 'auto' });
+                setTimeout(() => next.classList.remove(enterClass), 230);
+            }, 160);
+        }
+
+        // Restore whichever section was open before a tab switch, reload, or navigating back.
+        document.addEventListener('DOMContentLoaded', () => {
+            let savedPage = null;
+            try { savedPage = sessionStorage.getItem(PAGE_STORAGE_KEY); } catch (e) {}
+            if (savedPage && document.getElementById(savedPage)) {
+                showPage(savedPage, true);
+            }
+        });
+
+        // Formspree handler
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            if (form) {
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'SENDING...';
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.7';
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: new FormData(form),
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            alert('✅ Thank you for reaching out! I will get back to you soon.');
+                            form.reset();
+                        } else {
+                            throw new Error('Failed');
+                        }
+                    } catch {
+                        alert('❌ Oops! Something went wrong. Please email me directly at geethikaadasari@gmail.com');
+                    } finally {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                    }
+                });
+            }
+        });
+
+        // Intersection observer animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+        document.querySelectorAll('.project-card, .achievement-card, .timeline-item, .skill-category, .certification-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Live clock
+        function updateTime() {
+            const timeString = new Date().toLocaleString('en-US', {
+                hour: 'numeric', minute: '2-digit', second: '2-digit',
+                hour12: true, timeZone: 'Asia/Kolkata'
+            }).replace(',', '') + ' IST';
+            const el = document.getElementById('time-display');
+            if (el) el.textContent = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Scroll button
+        document.getElementById('scrollText')?.addEventListener('click', () => {
+            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
